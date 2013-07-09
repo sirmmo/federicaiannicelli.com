@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="jquery-1.9.1.min.js"></script>
+	<script src="jquery.nanoscroller.min.js"></script>
+	<script src="/zoom-master/jquery.zoom-min.js"></script>
+	<link rel="stylesheet" href="nanoscroller.css"> 
+	<link href="Font-Awesome-master/css/font-awesome.css" rel="stylesheet">  </link>
+	<script src="jquery.fancybox.pack.js"></script>
+	<link href="jquery.fancybox.css" rel="stylesheet" />
+	<script src="https://rawgithub.com/HenrikJoreteg/ICanHaz.js/master/ICanHaz.min.js"></script>
+	<script src="http://www.slidesjs.com/examples/standard/js/jquery.slides.min.js"></script>
+	<link rel="icon" type="image/png" href="favicon.png">
+	<title>Federica Iannicelli - Portfolio</title>
+	<style>
+	body{
+		font-size:0.8em;
+		margin:0 0 0 0;
+		width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+		font-family: Segoe UI, Verdana, Arial, Helvetica, sans-serif;
+		overflow: none;
+	}
+
+	header{
+		width: 100%;
+		height:10px;
+	}
+
+	nav{
+		position: absolute;
+		margin-left: 10px;
+		float: left;
+		width: 300px;
+		display: block;
+		color: white;
+		background-color: black;
+		padding-left: 5px;10px
+		padding-right: 5px;
+		z-index: 10000;
+	}
+	footer{
+		clear: both;
+		width: 100%;
+		text-align: center;
+		height: 16px;
+		display: block;
+		bottom: 0px;
+		position: fixed;
+		background-color: white;
+	}
+
+	a>i{
+		text-decoration: none;
+	}
+	#about, .text{
+		margin-left: 10px;
+		float: left;
+		width: 300px;
+		display: block;
+		color: white;
+		padding-top: 25px;
+		background-color: black;
+		padding-left: 5px;
+		height: 100%;
+		z-index: 251;
+		padding-right: 5px;
+		}
+	#about h1, .text h1{
+		font-size:1.7em;
+	}
+	#about a, .text a{
+		color: #ddd;
+	}
+	#tags{
+		float: left;
+		width: 160px;
+		display: block;
+	}
+	#thumbs{
+		float: left;
+		width: 160px;
+		display: block;
+	}
+	#tags .btn{
+		display: block;
+	}
+	#tags .topic:hover{
+		background-color: black;
+		color: white;
+		text-decoration: underline;
+		font-weight: bold;
+	}
+	#tags .component:hover{
+		background-color: black;
+		color: white;
+		text-decoration: underline;
+		font-weight: bold;
+	}
+	#tags .mode:hover{
+		background-color: black;
+		color: white;
+		text-decoration: underline;
+		font-weight: bold;
+	}
+	#tags .tesi:hover{
+		background-color: black;
+		color: white;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	.subtitle{
+		font-size:0.9em;
+		font-style: italic;
+	}
+	.contact{
+		padding-top: 15px;
+		font-size:0.8em;
+		font-style: italic;
+	}
+	#grid{
+		position: relative;
+		float: right;
+		min-width: 200px;
+		display: block;
+		min-height: 400px;
+	}
+	ul{
+		margin-top:0px;
+		padding-left: 10px;
+	}
+	li{
+		display: block;
+		padding-left: 10px;
+	}
+	.btn{
+		font-size:1.2em;
+		text-transform: uppercase;
+		cursor: pointer;
+		/*padding-left:10px;*/
+	}
+	.cntt{
+		float: right;
+		margin-right: 15px;
+	}
+	.tcntt{
+		float: right;
+		margin-right: 15px;
+	}
+	.table{
+		width: 100%;
+		height: 100%;
+		display: block;
+	}
+	.proj{
+		text-align: center;
+		display: table-cell;
+		padding:10px;
+		float: left;
+
+	}
+	.highlight{transition-duration: 1s;
+	}
+	.lowlight{
+		-webkit-filter: blur(7px) saturate(.2);
+		-o-filter: blur(7px) saturate(.2);
+		-moz-filter: blur(7px) saturate(.2);
+		-ms-filter: blur(7px) saturate(.2);
+		transition-duration: 1s;
+	}
+	.content  {
+
+		padding-left: 5px;
+		padding-right: 5px;
+		padding-top:25px;
+	}
+	.resume{
+		font-size:0.9;
+		padding-top:15px;
+	}
+
+	.tesi{
+		font-weight: bold;
+	/*	color:white;
+		background-color: black;*/
+		font-size: 1.75em;
+	}
+
+/*	.tesi:hover{
+		color:black;
+		background-color: white;
+	}*/
+	.brief{
+		color: #ddd;
+		font-size:0.9em;
+	}
+	.active {
+		text-decoration: underline;
+	}
+	#thumbs .thumb{
+		max-width:160px;
+		padding-top:3px;
+		padding-bottom:3px;
+	}
+
+	.cntt>*>img, .tcntt>*>img{
+		padding-top:15px;
+		padding-bottom:15px;
+	}
+
+	.nano .slider { 
+		background: gray; 
+	}
+	.home{
+		cursor: pointer;
+		font-size: 2em;
+	}
+
+
+#slides .slidesjs-container {
+  margin-bottom:10px;
+}
+
+#slides .slidesjs-previous {
+  margin-right: 5px;
+  float:left;
+}
+#slides .slidesjs-next {
+  margin-right: 5px;
+  float:left;
+}
+
+.slidesjs-pagination {
+    margin:6px 0 0;
+    float: right;
+    list-style: none;
+}
+
+.slidesjs-pagination li {
+    float: left;
+    margin: 0 1px;
+}
+
+.slidesjs-pagination li a {
+    display: block;
+    width: 13px;
+    height: 0;
+    padding-top: 13px;
+    background-image: url(/pagination.png);
+    background-position: 0 0;
+    float: left;
+    overflow: hidden;
+}
+
+.slidesjs-pagination li a.active, .slidesjs-pagination li a:hover.active { background-position: 0 -13px }
+
+.slidesjs-pagination li a:hover { background-position: 0 -26px }
+
+#slides a:link, #slides a:visited { color: #333 }
+
+#slides a:hover, #slides a:active { color: #9e2020 }
+
+.jquery-lightbox{
+	top:0px;
+}
+
+.spaced{
+	padding-left:20px;
+	padding-right:50px;
+}
+
+.hcenter {
+	padding-top:50px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+	</style>
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-40495239-1', 'federicaiannicelli.com');
+  ga('send', 'pageview');
+
+</script>
+	<script>
+		fullwidth = function(theDiv){
+			var theDiv = $(theDiv);
+			var totalWidth = theDiv.width();
+			totalWidth += parseInt(theDiv.css("padding-left"), 10) + parseInt(theDiv.css("padding-right"), 10); //Total Padding Width
+			totalWidth += parseInt(theDiv.css("margin-left"), 10) + parseInt(theDiv.css("margin-right"), 10); //Total Margin Width
+			totalWidth += parseInt(theDiv.css("borderLeftWidth"), 10) + parseInt(theDiv.css("borderRightWidth"), 10); //Total Border Width
+			return totalWidth;
+		}
+
+		fullheight = function(theDiv){
+			var theDiv = $(theDiv);
+			var totalWidth = theDiv.height();
+			totalWidth += parseInt(theDiv.css("padding-top"), 10) + parseInt(theDiv.css("padding-bottom"), 10); //Total Padding Width
+			totalWidth += parseInt(theDiv.css("margin-top"), 10) + parseInt(theDiv.css("margin-bottom"), 10); //Total Margin Width
+			totalWidth += parseInt(theDiv.css("borderTopHeight"), 10) + parseInt(theDiv.css("borderBottomHeight"), 10); //Total Border Width
+			return totalWidth;
+		}
+
+		resize = function(){
+			tw = fullwidth('#tags');
+			aw = fullwidth('#about');
+
+			h = $(window).height()-37;
+			w = $(window).width()-tw-aw-30-10;
+
+			console.log('h', h);
+			console.log('w', w);
+
+			$('#grid').width(w);
+			$('.cntt .display').width($('#grid').width()-100)
+			$('#grid').height($(window.document).height()-37);
+			$('#about').height(h);
+			$('.text').height(h);
+			$('#thumbs').height(h);
+			$('.cntt').width(w+tw);
+			$('.cntt').height(h);
+			$('.tcntt').width(w);
+			$('.tcntt').height(h);
+			c = $('.btn').length;
+			space = h - c * $('.btn').height() - 30;
+			single = (space/c)/2;
+			$('.btn').css('padding-top', single);
+			$('.btn').css('padding-bottom', single);
+
+			iw = w/2;
+			ih = h/5;
+
+			$('#grid img').css('max-width', iw);
+			$('#grid img').css('max-height', ih);
+
+			p = $('.proj').length;
+			swidth = $('.proj').width();
+			sheight =  $('.proj').height();
+			cwidth = $('#grid').width();
+			rows = 3;
+			cols = 3;
+			
+			vspace = h - (rows * ih) - 30;
+			vsingle = (vspace/rows)/2;
+			hspace = w - (cols * iw);
+			hsingle = (hspace/cols)/2;
+
+			$('.proj').css('padding-top', vsingle);
+			$('.proj').css('padding-bottom', vsingle);
+			$('.proj').css('padding-left', hsingle);
+			$('.proj').css('padding-right', hsingle);
+
+			$('.tcntt img').css('max-width', w);
+			
+		}
+
+		function reset(){
+			$('html, body').animate({ scrollTop: 0 }, 0);
+			$('.proj').removeClass('lowlight').addClass('highlight');
+				$('#grid').show();
+				$('#tags').show();
+				$('#about').show();
+				$('#thumbs').hide();
+				$('#thumbs .content').empty();
+				$('.cntt').hide();
+				$('.tcntt').hide();
+				$('.text').hide();
+		}
+		$(function(){
+
+			resize();
+			$(".nano").nanoScroller();
+			$("#slides").slidesjs({
+		        width: $(window).width()-fullwidth('#tags')-fullwidth('#about')-30-10,
+		        height: ($(window).width()-fullwidth('#tags')-fullwidth('#about')-30-10)/4*3,
+		         navigation: {
+      				active: true,
+      				effect:'slide'
+      			}
+		    });
+		    $('.lb_gallery a').fancybox({
+				'hideOnContentClick': true
+			});
+
+			$('.cntt').hide();
+			$('.tcntt').hide();
+			$('.text').hide();
+			$('#thumbs').hide();
+			$(window).on('resize', resize);
+			$('.btn').click(function(){
+				selected = $(this).data('tag');
+				reset();
+				$('.proj').addClass('lowlight').removeClass('highlight');
+				$('.proj[data-proj*="'+selected+'"]').addClass('highlight').removeClass('lowlight');
+
+			});
+			$('.proj').click(function(){
+				$('#thumbs .content').empty();
+				$('#grid').hide();
+				$('#tags').hide();
+				$('#about').hide();
+				prj = $(this).data('name');
+				$('.cntt').hide();
+				$('.tcntt').hide();
+				$('.text').hide();
+				$('.cntt[data-page="'+prj+'"]').show();
+				$('.tcntt[data-page="'+prj+'"]').show();
+				if ($('.tcntt[data-page="'+prj+'"]').length > 0 )
+					$('#thumbs').show();
+
+				$('.text[data-page="'+prj+'"]').show();
+				$('.text[data-page="'+prj+'"]').find('.active').each(function(i,el){
+					$('<img/>').addClass('thumb').attr('src', "/descrs/"+$(el).data('img')+".jpg").data('img', $(el).data('img')).data('page', prj).appendTo('#thumbs .content');
+				});
+			});
+			$(window.document).on('click','.thumb',function(){
+				page = $(this).data('page');
+				cntt = $('.cntt[data-page="'+page+'"] .display').attr('src', '/descrs/'+$(this).data('img')+".jpg");
+				tcntt = $('.tcntt[data-page="'+page+'"] .display').attr('src', '/descrs/'+$(this).data('img')+".jpg");
+			});
+
+			$('.tesi').click(function(){
+
+				$('#grid').hide();
+				$('.tcntt[data-page="tesi"]').show();
+				$('.text[data-page="tesi"]').show();
+			});
+			$('.home').click(function(){
+				reset();
+			});
+
+    
+			$(window.document).on('mouseover', '.active', function(){
+				page = $(this).closest('.text').data('page');
+				cntt = $('.cntt[data-page="'+page+'"] .display');
+				cntt.attr('src', '/descrs/'+$(this).data('img')+".jpg");
+				tcntt = $('.tcntt[data-page="'+page+'"] .display');
+				tcntt.attr('src', '/descrs/'+$(this).data('img')+".jpg");
+				console.log(page, $(this).data('img'));
+			});
+			$('area').mouseover(function(e){
+				img = $(this).data('img');
+				position_x = e.pageX;
+				position_y = e.pageY;
+
+				ich.container({'img':img}).attr('id', 'bar').css('left', position_x).css('top', position_y).appendTo('body');
+			}).mouseout(function(){
+				$('#bar').remove();
+			});
+		});
+	</script>
+	<script id="container" type="text/html">
+		<div style="position:absolute; z-index:100000;"><img style=" width:60%;" src="{{img}}"></div>
+	</script>
+</head>
+<body class="horizontal">
+	<div id="about">
+		<h1>Federica Iannicelli</h1>
+		<div class="subtitle">Design del prodotto industriale - Universit&agrave; degli studi di Ferrara</div>
+		<div class="contact"><i class="icon-envelope"></i> <a href="mailto:federica.iannicelli@student.unife.it">federica.iannicelli@student.unife.it</a></div>
+		<div class="contact"><i class="icon-mobile-phone"></i> <a href="tel:+393397425074">+393397425074</a></div>
+		<div class="resume"><b>Technical Skills</b>: Adobe Illustrator, Adobe Photoshop, Adobe Indesign, Cinema4D, Keyshot, Think3</div>
+		<div class="resume"><b>Practical Skills</b>: Produzione di modelli in legno, alluminio, cartone. </div>
+		
+	</div>
+	<div id="tags">
+		<ul>
+			<li class="btn topic" data-tag="eco">Eco</li>
+			<li class="btn topic" data-tag="infanzia">Infanzia</li>
+			<li class="btn topic" data-tag="arredamento_interni">Arredamento</li>
+			<li class="btn topic" data-tag="arredamento_urbano">Arredamento Urbano</li>
+			<li class="btn topic" data-tag="app">App</li>
+			<li class="btn topic" data-tag="wellness">Wellness</li>
+			<li class="btn topic" data-tag="packaging">Packaging</li>
+			<li class="btn component" data-tag="grafica">Grafica</li>
+			<li class="btn component" data-tag="modelli_e_render">Modelli e Render</li>
+			<li class="btn component" data-tag="prototipi">Prototipi</li>
+			<li class="btn mode" data-tag="team">Team</li>
+			<li class="btn mode" data-tag="solo">Solo</li>
+			<li class="btn tesi" data-tag="solo">Tesi</li>
+		</ul>
+	</div>
+	<div id="grid" class="nano">
+		<div class="table content" >
+			<div class="proj" data-name="momento" data-proj="team eco arredamento_interni grafica modelli_e_render prototipi"><img src="prjs/momento.jpg"></div>
+			<div class="proj" data-name="proxima" data-proj="arredamento_interni team modelli_e_render grafica"><img src="prjs/Proxima.jpg"></div>
+			<div class="proj" data-name="andra" data-proj="infanzia wellness eco prototipi team modelli_e_render"><img src="prjs/Andra.jpg"></div>
+			<div class="proj" data-name="h20" data-proj="eco arredamento_urbano solo modelli_e_render"><img src="prjs/H20.jpg"></div>
+			<div class="proj" data-name="genie" data-proj="wellness app team grafica"><img src="prjs/Genie.jpg"></div>
+			<div class="proj" data-name="qualicity" data-proj="eco app modelli_e_render grafica arredamento_urbano team"><img src="prjs/qualicity.jpg"></div>
+			<div class="proj" data-name="expopack" data-proj="solo eco grafica packaging prototipi"><img src="prjs/zavaj.jpg"></div>
+			<div class="proj" data-name="stilla" data-proj="eco prototipi packaging team modelli_e_render"><img src="prjs/stilla.jpg"></div>
+			<div class="proj" data-name="logo" data-proj="eco infanzia arredamento_interni app wellness packaging grafica modelli_e_render prototipi team arredamento_urbano solo"><img src="prjs/question.jpg"></div>
+		</div>
+	</div>
+
+	<div data-page="qualicity" class="thumbs hidden">
+
+	</div>
+
+
+	<div data-page="tesi" class="tcntt">
+		<h1>Progetto di Tesi</h1>
+		<div id="slides">
+			<img src="/descrs/TESI1.jpg">
+			<img src="/descrs/TESI2.jpg">
+			<img src="/descrs/TESI3.jpg">
+			<img src="/descrs/TESI4.jpg">
+			<img src="/descrs/TESI5.jpg">
+			<img src="/descrs/TESI6.jpg">
+			<img src="/descrs/TESI7.jpg">
+			<img src="/descrs/TESI8.jpg">
+			<img src="/descrs/TESI9.jpg">
+			<img src="/descrs/TESI10.jpg">
+			<img src="/descrs/TESI11.jpg">
+			<img src="/descrs/TESI12.jpg">
+		</div>
+	</div>
+
+	<div data-page="qualicity" class="tcntt nano">
+		<span style="display:inline-block" class="content"><img class="display" src="/descrs/QC_00.jpg"></span>
+	</div>
+	<div data-page="proxima" class="tcntt nano ">
+		<span style="display:inline-block" class="content">
+		<img class="display" src="/descrs/PROX_01.jpg"></span>
+	</div>
+	<div data-page="andra" class="tcntt nano ">
+		<span style="display:inline-block" class="content">
+		<img class="display" src="/descrs/Andra_01.jpg"></span>
+	</div> 
+	<div data-page="genie" class="tcntt nano ">
+		<span style="display:inline-block" class="content">
+		<img class="display" src="/descrs/GS_00.jpg"></span>
+	</div>
+	<div data-page="expopack" class="tcntt nano ">
+		<span style="display:inline-block" class="content">
+		<img class="display" src="/descrs/Expo_00.jpg"></span>
+	</div>
+	<div data-page="logo" class="tcntt nano ">
+		<span style="display:inline-block" class="content">
+		<img class="display" src="/descrs/Misc_Logo_00.jpg"></span>
+	</div>
+
+	<div data-page="stilla" class="cntt ">
+		<embed width="100%" height="100%" name="plugin" src="/descrs/Cremonini_DelFuoco_Iannicelli.pdf" type="application/pdf">
+	</div>
+
+	<div data-page="momento" class="cntt lb_gallery">
+		<table class="hcenter" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+					<a rel="lightbox" class="display" href="/descrs/cea_00.jpg"><img width="200" class="spaced" src="/descrs/cea_00.jpg" alt=""></a>
+				</td>
+				<td>
+					<a rel="lightbox" class="display" href="/descrs/cea_01.jpg"><img width="200" src="/descrs/cea_01.jpg" alt=""></a>
+				</td>
+				<td>
+					<a rel="lightbox" class="display" href="/descrs/cea_02.jpg"><img width="200" src="/descrs/cea_02.jpg" alt=""></a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a rel="lightbox" class="display" href="/descrs/cea_00bis.jpg"><img width="200" class="spaced" src="/descrs/cea_00bis.jpg" alt=""></a>
+				</td>
+				<td>
+					<a rel="lightbox" class="display" href="/descrs/cea_03.jpg"><img width="200" src="/descrs/cea_03.jpg" alt=""></a>
+				</td>
+				<td>
+					<a rel="lightbox" class="display" href="/descrs/cea_04.jpg"><img width="200" src="/descrs/cea_04.jpg" alt=""></a>
+				</td>
+			 </tr>
+		</table>
+	</div>
+
+	<div data-page="h20" class="cntt ">
+		<img src="/descrs/H20_00.jpg" usemap="imgmap201342522910"></span>
+		<map id="imgmap201342522910" name="imgmap201342522910">
+			<area data-img="/descrs/H20_1SX.jpg" shape="rect" alt="" title="" coords="29,20,52,53" href="" target="" />
+			<area data-img="/descrs/H20_1DX.jpg" shape="rect" alt="" title="" coords="338,154,368,184" href="" target="" />
+			<area data-img="/descrs/H20_2DX.jpg" shape="rect" alt="" title="" coords="312,261,344,292" href="" target="" />
+			<area data-img="/descrs/H20_3DX.jpg" shape="rect" alt="" title="" coords="274,341,308,376" href="" target="" />
+			<area data-img="/descrs/H20_2SX.jpg" shape="rect" alt="" title="" coords="75,360,110,393" href="" target="" />
+			<area data-img="/descrs/H20_4DX.jpg" shape="rect" alt="" title="" coords="238,423,272,455" href="" target="" />
+			<area data-img="/descrs/H20_3SX.jpg" shape="rect" alt="" title="" coords="21,486,52,520" href="" target="" />
+			<area data-img="/descrs/H20_4SX.jpg" shape="rect" alt="" title="" coords="76,560,108,592" href="" target="" />
+			<!-- Created by Online Image Map Editor (http://www.maschek.hu/imagemap/index) -->
+		</map>
+	</div>
+	
+
+	<div data-page="proxima" class="text  nano">
+		<div class="content">
+			<h1>Proxima</h1>
+			<i class="feat">con Francesco Del Fuoco e Giulia Cremonini</i>
+
+			<p class="brief">BRIEF: Progettare una scrivania dirigenziale del futuro per la <a href="http://www.meco-office.com/" target="_blank">MECO</a></p>
+
+			<p>Proxima &egrave; una scrivania dirigenziale per progettisti che desiderano mostrare una propensione sia per la natura che per scelte tecniche avanzate. Il <span class="active" data-img="PROX_01">piano</span> &egrave; una forma irregolare in vetro con colorazione di un blu particolare che richiami sia l'idea dell'acqua che di eleganza. La <span class="active" data-img="PROX_02">gamba</span> pu&ograve; essere ottenuta dal taglio di tre pezzi identici, poi piegati o con uno stampo dell'intera forma, per favorire l'impilabilit&agrave; e il trasporto, il montaggio dei rinforzi pu&ograve; essere eseguito durante l'assemblaggio finale dal cliente. Per equilibrare l'appoggio sull'altro lato &egrave; presente un monolite, con all'interno tre cassetti di diversa misura e un vano per gli eventuali cavi.<br />
+			E' posizionato in parte esternamente per poter sorreggere <span class="active" data-img="PROX_03">l'allungo</span>.<br />
+			L'allungo ha due piani, quello inferiore in legno e quello che continua il corpo principale in vetro, per sorreggersi sfrutta la stessa gamba, ribaltata.<br />
+			La collezione comprende un tavolino da caff&egrave; e un <span class="active" data-img="PROX_04">tavolo da riunione</span>.<br />
+			</p>
+		</div>
+	</div>
+	<div data-page="logo" class="text  nano">
+		<div class="content">
+			<h1>Progetti per l'Universit&agrave;</h1>
+			<p><span class="active" data-img="Misc_Logo_00">LOGO CID</span></p>
+			<p><span class="active" data-img="Misc_Logo_01">LOGO CORSO</span></p>
+			<p><span class="active" data-img="Misc_Modello_00">MODELLO 1</span></p>
+			<p><span class="active" data-img="Misc_Modello_01">MODELLO 2</span></p>
+			<p><span class="active" data-img="Misc_Render_00">RENDER 1</span></p>
+			<p><span class="active" data-img="Misc_Render_01">RENDER 2</span></p>
+			<p><span class="active" data-img="Misc_RenderManuali_00">RENDER MANUALI</span></p>
+		</div>
+	</div>
+	<div data-page="expopack" class="text  nano">
+		<div class="content">
+			<h1>Expopack</h1>
+
+			<p class="brief">BRIEF: progettazione di un Pack in carta o cartone che sia riciclabile al 100% e che incarni i valori di eco-sostenibilit&agrave; ambientale, coerentemente con il tema dell'edizione italiana dell'EXPO: <a href="http://www.comieco.org/le-nostre-prospettive/lab-buon-packaging/news/expo-2015-comieco-lancia-concorso-per-la-progettazione-del-pack-mascotte-della-manifestazione.aspx">"Feeding the Planet, Energy for Life"</a></p>
+
+			<p>La proposta nasce dall'idea di rispecchiare completamente il <span class="active" data-img="Expo_01">motto della fiera, trattando sia di cibo che di energia</span>(Expo_01), e fornire al contempo un contenitore dai molteplici utilizzi che non concluda il suo ciclo vitale all'interno della fiera ma potesse essere sfruttato anche in seguito.
+			Viene fornito all'entrata insieme al pasto prescelto, quando ci si fermer&agrave; per mangiare si potr&agrave; utilizzare per <span class="active" data-img="Expo_02">riscaldare le pietanze al sole grazie all'alluminio</span>(expo_02) di cui &egrave; foderato che <span class="active" data-img="Expo_05">lo rende un forno solare</span>(expo_04). Nel caso si rovinasse, questo strato interno pu&ograve; essere facilmente sostituito autonomamente a casa propria.
+			La confezione &egrave; formata da due parti che, aperte, ricordano rispettivamente <span class="active" data-img="Expo_03">un robottino</span>(expo_03) e <span class="active" data-img="Expo_04">un vestitino</span>(expo_04), per poter essere utili anche come gioco per bambini. Una volta rovinatosi si pu&ograve; buttare nel cartone e riciclare.
+			</p>
+		</div>
+	</div>
+
+	<div data-page="genie" class="text  nano">
+		<div class="content">
+			<h1><span class="active" data-img="GS_00">Genie System</span></h1>
+			<i>Con Francesco Del Fuoco e Giulia Cremonini</i>
+
+			<p class="brief">BRIEF:  &egrave; richiesto un concept che inviti, mediante il progetto di prodotti e/o interfacce fisiche o virtuali, a
+			praticare salutare attivit&agrave; fisica in un ottica di futuro che, partendo da oggi, si rivolga sia alle vecchie che alle nuove generazioni di possibili praticanti.</p>
+
+			<p>Genie System si occupa di correggere una postura scorretta e prevenire i problemi legati ad essa.<br/>
+			<span class="active" data-img="GS_01">E' formato da un sistema integrato</span> composto da:
+			<ul>
+				<li><span class="active" data-img="GS_02">un orologio </span> con funzione di interfaccia per il monitoraggio dei sensori e per il controllo della musica;</li>
+				<li><span class="active" data-img="GS_03">una cuffia</span> che, oltre a mantenere il suo ruolo classico, fornisce segnali audio per correggersi e incorpora un sensore per il controllo della posizione della testa;</li>
+				<li><span class="active" data-img="GS_04">tre sensori</span> applicabili su una maglia lungo l'ideale linea della colonna vertebrale;</li>
+				<li><span class="active" data-img="GS_05">una Mywelnesskey</span> apposita per controllare i vari sensori.</li>
+			</ul>
+			<span class="active" data-img="08">Il contenitore</span> con cui viene fornito il bundle &egrave; anche espositore e caricatore.<br/>
+
+			Al tutto si unisce <span class="active" data-img="GS_06">un'applicazione</span> per <span class="active" data-img="GS_07">cellulare</span> in grado di fornire nuovi esercizi e registrare i propri progressi.
+			</p>
+			
+			<p>Al tutto si unisce un'applicazione per cellulare in grado di fornire nuovi esercizi e registrare i propri progressi.</p>
+		</div>
+	</div>
+
+	<div data-page="momento" class="text  nano">
+		<div class="content">
+			<h1>CEA</h1>
+			<i>Con Giulia Cavinato</i>
+
+			<p class="brief">Brief: <a  target="_blank" href="http://www.ceadesign.it/it/eventi/2013/22-progetti-in-mostra-a-ferrara-dal-28-gennaio/366">Cea</a> sponsorizza il concorso "ACCIAIO / ACQUA / ARIA" finalizzato alla proposta di un concept di prodotto industriale  e alla sua progettazione esecutiva,che sia caratterizzato dai tre elementi base e tipologicamente compatibile con la produzione Aziendale, mantenendo un occhio di riguardo a tematiche ambientali quali il risparmio idrico, l'utilizzo di materiali totalmente riciclabili e l'ottimizzazione energetica.</p>
+
+			<p>MOMENTO esprime innovazione tecnica e formale trasformando il funzionamento di una cartuccia normale in sistema idroprogressivo sfruttandone i vantaggi - sostanziale risparmio energetico - e superandone i limiti consentendo di regolare il getto di acqua calda. L' incastro della manopola d'acciaio con l'erogatore in Delrin&reg; obbliga ad aprire e chiudere il rubinetto nella posizione dell'acqua fredda e conferisce all'oggetto chiuso una linea essenziale e pulita prolungata dalla sporgenza anteriore che ne indica la direzione di apertura. 
+			</p>
+			
+			<div class="links">Link
+				<ul>
+					<li><a target="_blank" href="http://www.ceadesign.it/en/news/2013/momento---progetto-vincitore-del-concorso-acciaio-aria-acqua-dell039uniiversita039-di-ferrara/367"><i class="icon-external-link"></i>ceadesign</a></li>
+					<li><a target="_blank" href="http://www.internimagazine.com/newsweekly/workshop/cea-and-the-young-designers-of-the-department-of-architecture-of-ferrara-the-winning-projects"><i class="icon-external-link"></i>internimagazine.com</a></li> 
+					<li><a target="_blank" href="http://bassanelli.it/9464/acciaio-aria-acqua-cea-e-i-giovani-progettisti-della-facolta-di-architettura-di-ferrara/"><i class="icon-external-link"></i>bassanelli.it</a></li>
+					<li><a target="_blank" href="http://www.materialdesign.it/it/post-it/i-progetti-vincitori-del-concorso-acciaio-acqua-aria-_13_369.htm"><i class="icon-external-link"></i>materialdesign.it</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div data-page="h20" class="text  nano">
+		<div class="content">
+			<h1>H2&Oslash;</h1>
+
+		
+
+			<p>Come ogni cosa, anche la nebbia pu&ograve; essere una risorsa se guardata nella giusta prospettiva. Mentre noi la vediamocome un fastidio e perfino un pericolo, in Sud Africa il bisogno di acqua potabile ha fatto si che nella zona umida di Makuleni qualcuno trovasse il modo di accumularla usando delle grandi reti per condensarla e usarla per dar da bere alla popolazione.Deve essere certo una scusa per non utilizzare una risorsa in sovrabbondanza. H2&Oslash;, finalmente le zone urbane potranno produrre invece di limitarsi a consumare le risorse idriche.vedendo il funzionamento, potrebbero familiarizzare con  l'idea di utilizzare questa soluzione su larga scala e privatamente. Per esempio installando grate di questo tipo su edifici quali fabbriche per renderle, almeno in parte autonome dal punto di vista idrico.
+
+			</p>
+			
+		</div>
+	</div>
+
+	<div data-page="qualicity" class="text  nano">
+		<div class="content">
+			<h1>QUALI(CI)TY</h1>
+			<i><a href="http://www.unife.it/facolta/architettura/quali-ci-ty">Elenco partecipanti</a></i>
+
+			<p>WORKSHOP promosso dalla rivista Of Arch al MADE Expo di Milano (16-20 ottobre 2012) dal titolo "Quali(ci)ty. Redesign and energy efficiency for a sustainable quality of life". L'area oggetto di studio &egrave; il Consorzio agrario di Reggio Emilia. I concept elaborati durante le giornate sono stati di tipo multiscalare, spaziando dall'architettura al design. Il tema pi&ugrave; ampio all'interno del quale ragionare &egrave; stato quello della citt&agrave; che, attraverso il recupero architettonico di quartieri degradati, singoli edifici, piazze, parchi e infrastrutture, si rinnova riconsiderando gli scenari di benessere e sostenibilit&agrave; della comunit&agrave; che la vive.
+	
+			Il gruppo di design si &egrave; focalizzato sul <span class="active" data-img="QC_00">riutilizzo degli oggetti e degli spazi gi&agrave; presenti</span> e sulla creazione di un sistema in grado di fornire un'esperienza personalizzata ai vari utenti attraverso un oggetto "smart" contenente un NFC in grado di comunicare i dati in sicurezza, cos&igrave; da avere un servizio dedicato in grado di adattarsi all'utente e facilitare l'uso delle strutture e dei servizi.
+			Sistema:
+			Al centro di tutto il sistema di integrazione del luogo c'&egrave; il <span class="active" data-img="QC_01">SEED</span> un dispositivo personale portatile contenente un sensore NFC per la trasmissione a distanza ravvicinata di dati personali. Grazie ad esso si pu&ograve; usufruire dei vari servizi quali
+			<ul>
+			<li>bike sharing: le colonnine sono posizionate nei punti strategici (stazione della metro, fermate del bus, etc...). Le biciclette sono a pedalata assistita e riescono a convertire l'energia meccanica della pedalata in energia elettrica che contribuisce all'alimentazione del centro.</li>
+			<li>Accesso all'interfaccia comune e sfruttamento del servizio di rewarding e awareness che fornisce un <span class="active" data-img="QC_02">feedback positivo all'utente fidelizzandolo.</span>Per esempio la facciata della cattedrale funziona da ripetitore della situazione del centro in un modo facile da comprendere utilizzando la grafica per una percezione pi&ugrave; immediata. L'interfaccia serve sia a comunicare dall'interno all'esterno  (eventi nelle altre zone della citt&agrave;) sia dall'esterno all'interno (si hanno per esempio informazioni sul traffico per arrivare al centro)</li>
+			<li>Utilizzo dei carrelli intelligenti in grado di leggere i prodotti con etichette fornite di RFID in modo da velocizzare il passaggio alla cassa e avere <span class="active" data-img="QC_03">informazioni specifiche sui prodotti</span> (il dispositivo posto sul carrello fornisce specifiche sull'impatto ecologico e la qualit&agrave;). (Si usano gli RFID per sistemi in cui c'&egrave; bisogno di un raggio d'azione pi&ugrave; ampio e una privacy pi&ugrave; bassa e l' NFC, che &egrave; criptato e a basso raggio, per le cose pi&ugrave; personali). In ogni caso i carrelli sono usufruibili anche da un cliente occasionale non in possesso del SEED ma ci&ograve; comporta minori servizi.</li>
+			<li><span class="active" data-img="QC_04">Comprare dal Centro riciclaggio o partecipare alle sue attivit&agrave;.</span> Il centro &egrave; strutturato in parte come un negozio nelle cui vetrine si possono vedere i prodotti creati al suo interno  e prezzati non in euro ma in ore di lavoro o punti SEED. Con questi punti si possono comprare sia gli oggetti che i corsi. Nel cortile interno sono posizionati i bidoni dell'immondizia, trasparenti e accessibili al pubblico per rendere i rifiuti e il riciclaggio non qualcosa da nascondere ma un aspetto della vita del centro commerciale. Sulle pareti trasparenti si  hanno delle strisce colorate che indicano lo smaltimento dei vari tipi di rifiuto, come fosse una gara in cui tutti partecipano tra le materie riciclabili e quelle non riciclabili.</li>
+			<li>Inoltre il sistema del SEED &egrave; interfacciabile anche con i vari servizi della citt&agrave; quali Remida, Iren, la societ&agrave; dei trasporti, cos&igrave; da poter rinforzare tra loro le varie attivit&agrave; della citt&agrave;. Attraverso Social Network una persona pu&ograve; venire a conoscenza dei suoi consumi e <span class="active" data-img="QC_05">confrontare il suo "livello di buon cittadino" con quello degli altri.</span> </li>
+			Per utilizzi pi&ugrave; occasionali &egrave; possibile sfruttare il cellulare o le <span class="active" data-img="QC_06">carte personali tipo tessera sanitaria.</span>
+
+
+			</p>
+			
+		</div>
+	</div>
+	<div data-page="andra" class="text  nano">
+		<div class="content">
+			<h1>&Auml;NDRA</h1>
+			<i>Con Giulia Cremonini</i>
+
+			<p class="brief">BRIEF: Contenitori plastici per l'ordinariet&agrave; quotidiana. progettazione di un oggetto in plastica realizzabile con i sistemi produttivi dell'azienda <a href="http://www.vecaspa.com/">VECA</a></p>
+	
+			<p>&Auml;ndra &egrave; un alternativa sostenibile e comoda ai normali vasini: 
+			il suo corpo &egrave; ridotto al minimo per evitare il consumo di plastica,
+			&egrave; composto da tre parti per poter essere personalizzabile e dare la possibilit&agrave; di sostituire un singolo pezzo usurato  <span class="active" data-img="Andra_02">al posto dell'intero oggetto,</span>(Andra_02) 
+			 <span class="active" data-img="Andra_01">i singoli pezzi sono impilabili per favorirne il trasporto</span>(Andra_01)
+			&egrave; trasformabile in un riduttore per il wc, senza l'aggiunta di componenti, per poter seguire il ciclo di crescita del bambino e <span class="active" data-img="Andra_03">allungare la vita del prodotto</span>,(Andra_03)
+			prevede l'uso di  <span class="active" data-img="Andra_04">coppette in cartone sanitario</span>(Andra_04) (materiale finora sfruttato in modo molto limitato) che permettono una pulizia più veloce del vasino, la possibilit&agrave; di riciclare tutto come compost,  <span class="active" data-img="Andra_05">permette al bambino</span>(Andra_05)di occuparsi da solo della disposizione del rifiuto.
+
+
+
+			</p>
+			
+		</div>
+	</div>
+
+		<div data-page="stilla" class="text  nano">
+		<div class="content">
+			<h1>STILLA</h1>
+			<i>Con Giulia Cremonini e Francesco Del Fuoco</i>
+
+			<p class="brief">BRIEF: Progettare un contenitore per l'acqua in un futuro indefinito dove essa &egrave; diventata ancora più rara e preziosa</p>
+			<p>Una solida roccia in <a href="http://www.himacs.eu/pagina-iniziale" target="_blank">HI-MACS</a> contiene il prezioso liquido. Per assaporarlo si utilizza il coperchio che ospita una struttura a stallatile che permette di fruirne goccia a goccia.  In alternativa, il contenitore pu&ograve; essere utilizzato come bicchiere.</p>
+		</div>
+	</div>
+
+	<div id="thumbs" class=" nano">
+		<div class="content"></div>
+	</div>
+
+	<nav><span class="home"><i class="icon-arrow-left"></i></span></nav>
+	<footer>&copy; 2013 Federica Iannicelli</footer>
+</body>
+</html>
