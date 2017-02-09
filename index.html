@@ -4,8 +4,8 @@
 	<script src="jquery-1.9.1.min.js"></script>
 	<script src="jquery.nanoscroller.min.js"></script>
 	<script src="/zoom-master/jquery.zoom-min.js"></script>
-	<link rel="stylesheet" href="nanoscroller.css"> 
-	<link href="Font-Awesome-master/css/font-awesome.css" rel="stylesheet">  </link>
+	<link rel="stylesheet" href="nanoscroller.css">
+	<link href="Font-Awesome-master/css/font-awesome.css" rel="stylesheet">
 	<script src="jquery.fancybox.pack.js"></script>
 	<link href="jquery.fancybox.css" rel="stylesheet" />
 	<script src="https://rawgithub.com/HenrikJoreteg/ICanHaz.js/master/ICanHaz.min.js"></script>
@@ -504,9 +504,9 @@
 			$(window.document).on('mouseover', '.active', function(){
 				page = $(this).closest('.text').data('page');
 				cntt = $('.cntt[data-page="'+page+'"] .display');
-				cntt.attr('src', '/descrs/'+$(this).data('img')+".jpg");
+				cntt.attr('src', 'descrs/'+$(this).data('img')+".jpg");
 				tcntt = $('.tcntt[data-page="'+page+'"] .display');
-				tcntt.attr('src', '/descrs/'+$(this).data('img')+".jpg");
+				tcntt.attr('src', 'descrs/'+$(this).data('img')+".jpg");
 				console.log(page, $(this).data('img'));
 			});
 			$('area').mouseover(function(e){
@@ -648,7 +648,7 @@
 	</div>
 
 	<div data-page="h20" class="cntt ">
-		<img src="/descrs/H20_00.jpg" usemap="imgmap201342522910"></span>
+		<img src="/descrs/H20_00.jpg" usemap="imgmap201342522910">
 		<map id="imgmap201342522910" name="imgmap201342522910">
 			<area data-img="/descrs/H20_1SX.jpg" shape="rect" alt="" title="" coords="29,20,52,53" href="" target="" />
 			<area data-img="/descrs/H20_1DX.jpg" shape="rect" alt="" title="" coords="338,154,368,184" href="" target="" />
