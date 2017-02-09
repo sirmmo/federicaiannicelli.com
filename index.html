@@ -20,7 +20,7 @@
 		margin-left: auto;
 		margin-right: auto;
 		font-family: Segoe UI, Verdana, Arial, Helvetica, sans-serif;
-		overflow: none;
+		overflow: hidden;
 	}
 
 	header{
@@ -30,7 +30,7 @@
 
 	nav{
 		position: absolute;
-		margin-left: 10px;
+		margin-left: 16px;
 		float: left;
 		width: 300px;
 		display: block;
@@ -55,7 +55,7 @@
 		text-decoration: none;
 	}
 	#about, .text{
-		margin-left: 10px;
+		margin-left: 16px;
 		float: left;
 		width: 300px;
 		display: block;
@@ -158,6 +158,9 @@
 		display: table-cell;
 		padding:10px;
 		float: left;
+		cursor: pointer; cursor: hand; 
+		border:1px solid white;
+		position: relative;
 
 	}
 	.highlight{transition-duration: 1s;
@@ -167,8 +170,25 @@
 		-o-filter: blur(7px) saturate(.2);
 		-moz-filter: blur(7px) saturate(.2);
 		-ms-filter: blur(7px) saturate(.2);
+		filter: blur(7px) saturate(.2);
 		transition-duration: 1s;
 	}
+
+	.ffbadge{
+		position: absolute;
+		top: 20px;
+		right: 20px;
+		width: 20px;
+		height: 20px;
+		display: block;
+		background-image: url(http://www.powermapper.com/images/badge-v1/check-badge.png);
+	}
+	.highlight .ffbadge {display: none;}
+	.lowlight .ffbadge{display: none;}
+
+	.highlightff .ffbadge {display: block;}
+	.lowlightff .ffbadge{display: none;}
+
 	.content  {
 
 		padding-left: 5px;
@@ -197,6 +217,7 @@
 	}
 	.active {
 		text-decoration: underline;
+		cursor: pointer; cursor: hand; 
 	}
 	#thumbs .thumb{
 		max-width:160px;
@@ -219,7 +240,7 @@
 
 
 #slides .slidesjs-container {
-  margin-bottom:10px;
+  /*margin-bottom:-40px;*/
 }
 
 #slides .slidesjs-previous {
@@ -288,6 +309,9 @@
 
 </script>
 	<script>
+
+	var FI = {};
+	FI.is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 		fullwidth = function(theDiv){
 			var theDiv = $(theDiv);
 			var totalWidth = theDiv.width();
@@ -347,7 +371,7 @@
 			
 			vspace = h - (rows * ih) - 30;
 			vsingle = (vspace/rows)/2;
-			hspace = w - (cols * iw);
+			hspace = w - (cols * iw)-4;
 			hsingle = (hspace/cols)/2;
 
 			$('.proj').css('padding-top', vsingle);
@@ -360,24 +384,58 @@
 		}
 
 		function reset(){
+			llclass = "lowlight";
+			hlclass = "highlight";
+			if (FI.is_firefox){
+				llclass +="ff";
+				hlclass += "ff"
+			}
 			$('html, body').animate({ scrollTop: 0 }, 0);
-			$('.proj').removeClass('lowlight').addClass('highlight');
-				$('#grid').show();
-				$('#tags').show();
-				$('#about').show();
-				$('#thumbs').hide();
-				$('#thumbs .content').empty();
-				$('.cntt').hide();
-				$('.tcntt').hide();
-				$('.text').hide();
+			$('.proj').removeClass(llclass).addClass(hlclass);
+			$('#grid').show();
+			$('#tags').show();
+			$('#about').show();
+			$('#thumbs').hide();
+			$('#thumbs .content').empty();
+			$('.cntt').hide();
+			$('.tcntt').hide();
+			$('.text').hide();
 		}
+
+ 		function set_page(hash){
+ 			dt = hash.split('/');
+ 			t = dt[0];
+ 			d = dt[1];
+
+ 			if (t == "tag"){
+ 				st = 'btn';
+ 				sd = t;
+ 				}
+ 			else {
+ 				st = "proj";
+ 				sd = 'name';
+			}
+ 			$('.'+st+"[data-"+sd+"="+d+"]").click();
+ 	    }
+
 		$(function(){
+			FI.is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+			var lastHash = location.hash;
+			$(window).bind('hashchange', function() {
+				if (location.hash !== "")
+					set_page(location.hash.split('#')[1]);
+				else
+					reset();
+			});
+
+			  if (!FI.is_firefox)
+			  	$('.ffbadge').remove();
 
 			resize();
 			$(".nano").nanoScroller();
 			$("#slides").slidesjs({
-		        width: $(window).width()-fullwidth('#tags')-fullwidth('#about')-30-10,
-		        height: ($(window).width()-fullwidth('#tags')-fullwidth('#about')-30-10)/4*3,
+		        width: $(window).width()-fullwidth('#tags')-fullwidth('#about')-30-10-20-50,
+		        height: (($(window).width()-fullwidth('#tags')-fullwidth('#about')-30-10-20-50)/4*3 ) - 50,
 		         navigation: {
       				active: true,
       				effect:'slide'
@@ -394,17 +452,25 @@
 			$(window).on('resize', resize);
 			$('.btn').click(function(){
 				selected = $(this).data('tag');
+				window.history.pushState({},"", "#tag/"+selected);
+				llclass = "lowlight";
+				hlclass = "highlight";
+				if (FI.is_firefox){
+					llclass +="ff";
+					hlclass += "ff"
+				}
 				reset();
-				$('.proj').addClass('lowlight').removeClass('highlight');
-				$('.proj[data-proj*="'+selected+'"]').addClass('highlight').removeClass('lowlight');
+				$('.proj').addClass(llclass).removeClass(hlclass);
+				$('.proj[data-proj*="'+selected+'"]').addClass(hlclass).removeClass(llclass);
 
 			});
 			$('.proj').click(function(){
+				prj = $(this).data('name');
+				window.history.pushState({},"",  "#project/"+prj);
 				$('#thumbs .content').empty();
 				$('#grid').hide();
 				$('#tags').hide();
 				$('#about').hide();
-				prj = $(this).data('name');
 				$('.cntt').hide();
 				$('.tcntt').hide();
 				$('.text').hide();
@@ -412,7 +478,6 @@
 				$('.tcntt[data-page="'+prj+'"]').show();
 				if ($('.tcntt[data-page="'+prj+'"]').length > 0 )
 					$('#thumbs').show();
-
 				$('.text[data-page="'+prj+'"]').show();
 				$('.text[data-page="'+prj+'"]').find('.active').each(function(i,el){
 					$('<img/>').addClass('thumb').attr('src', "/descrs/"+$(el).data('img')+".jpg").data('img', $(el).data('img')).data('page', prj).appendTo('#thumbs .content');
@@ -431,6 +496,7 @@
 				$('.text[data-page="tesi"]').show();
 			});
 			$('.home').click(function(){
+				window.history.pushState({},"",  "/");
 				reset();
 			});
 
@@ -452,6 +518,9 @@
 			}).mouseout(function(){
 				$('#bar').remove();
 			});
+
+			if ((location.hash != "") || (location.hash != "#"))
+				setTimeout(set_page(location.hash.split('#')[1]), 100);
 		});
 	</script>
 	<script id="container" type="text/html">
@@ -464,8 +533,9 @@
 		<div class="subtitle">Design del prodotto industriale - Universit&agrave; degli studi di Ferrara</div>
 		<div class="contact"><i class="icon-envelope"></i> <a href="mailto:federica.iannicelli@student.unife.it">federica.iannicelli@student.unife.it</a></div>
 		<div class="contact"><i class="icon-mobile-phone"></i> <a href="tel:+393397425074">+393397425074</a></div>
-		<div class="resume"><b>Technical Skills</b>: Adobe Illustrator, Adobe Photoshop, Adobe Indesign, Cinema4D, Keyshot, Think3</div>
+		<div class="resume"><b>Technical Skills</b>: Adobe Illustrator, Adobe Photoshop, Adobe Indesign, Cinema4D, Keyshot, Think3.</div>
 		<div class="resume"><b>Practical Skills</b>: Produzione di modelli in legno, alluminio, cartone. </div>
+		<div class="resume"><b>Interaction Skills</b>: Capacit&agrave; di analisi critica, lavoro in team, facilitatrice. </div>
 		
 	</div>
 	<div id="tags">
@@ -482,20 +552,20 @@
 			<li class="btn component" data-tag="prototipi">Prototipi</li>
 			<li class="btn mode" data-tag="team">Team</li>
 			<li class="btn mode" data-tag="solo">Solo</li>
-			<li class="btn tesi" data-tag="solo">Tesi</li>
+			<!--<li class="btn tesi" data-tag="tesi">Tesi</li>-->
 		</ul>
 	</div>
 	<div id="grid" class="nano">
 		<div class="table content" >
-			<div class="proj" data-name="momento" data-proj="team eco arredamento_interni grafica modelli_e_render prototipi"><img src="prjs/momento.jpg"></div>
-			<div class="proj" data-name="proxima" data-proj="arredamento_interni team modelli_e_render grafica"><img src="prjs/Proxima.jpg"></div>
-			<div class="proj" data-name="andra" data-proj="infanzia wellness eco prototipi team modelli_e_render"><img src="prjs/Andra.jpg"></div>
-			<div class="proj" data-name="h20" data-proj="eco arredamento_urbano solo modelli_e_render"><img src="prjs/H20.jpg"></div>
-			<div class="proj" data-name="genie" data-proj="wellness app team grafica"><img src="prjs/Genie.jpg"></div>
-			<div class="proj" data-name="qualicity" data-proj="eco app modelli_e_render grafica arredamento_urbano team"><img src="prjs/qualicity.jpg"></div>
-			<div class="proj" data-name="expopack" data-proj="solo eco grafica packaging prototipi"><img src="prjs/zavaj.jpg"></div>
-			<div class="proj" data-name="stilla" data-proj="eco prototipi packaging team modelli_e_render"><img src="prjs/stilla.jpg"></div>
-			<div class="proj" data-name="logo" data-proj="eco infanzia arredamento_interni app wellness packaging grafica modelli_e_render prototipi team arredamento_urbano solo"><img src="prjs/question.jpg"></div>
+			<div class="proj" data-name="momento" data-proj="team eco arredamento_interni grafica modelli_e_render prototipi"><img src="prjs/momento.jpg"> <div class="ffbadge"></div></div>
+			<div class="proj" data-name="proxima" data-proj="arredamento_interni team modelli_e_render grafica"><img src="prjs/Proxima.jpg"><div class="ffbadge"></div></div>
+			<div class="proj" data-name="andra" data-proj="infanzia wellness eco prototipi team modelli_e_render"><img src="prjs/Andra.jpg"><div class="ffbadge"></div></div>
+			<div class="proj" data-name="h20" data-proj="eco arredamento_urbano solo modelli_e_render"><img src="prjs/H20.jpg"><div class="ffbadge"></div></div>
+			<div class="proj" data-name="genie" data-proj="wellness app team grafica"><img src="prjs/Genie.jpg"><div class="ffbadge"></div></div>
+			<div class="proj" data-name="qualicity" data-proj="eco app modelli_e_render grafica arredamento_urbano team"><img src="prjs/qualicity.jpg"><div class="ffbadge"></div></div>
+			<div class="proj" data-name="expopack" data-proj="solo eco grafica packaging prototipi"><img src="prjs/zavaj.jpg"><div class="ffbadge"></div></div>
+			<div class="proj" data-name="stilla" data-proj="eco prototipi packaging team modelli_e_render"><img src="prjs/stilla.jpg"><div class="ffbadge"></div></div>
+			<div class="proj" data-name="logo" data-proj="eco infanzia arredamento_interni app wellness packaging grafica modelli_e_render prototipi team arredamento_urbano solo"><img src="prjs/question.jpg"><div class="ffbadge"></div></div>
 		</div>
 	</div>
 
@@ -503,9 +573,9 @@
 
 	</div>
 
-
+<!--
 	<div data-page="tesi" class="tcntt">
-		<h1>Progetto di Tesi</h1>
+		<h1 style="margin-top:5px; margin-bottom:5px;">Progetto di Tesi</h1>
 		<div id="slides">
 			<img src="/descrs/TESI1.jpg">
 			<img src="/descrs/TESI2.jpg">
@@ -521,7 +591,7 @@
 			<img src="/descrs/TESI12.jpg">
 		</div>
 	</div>
-
+-->
 	<div data-page="qualicity" class="tcntt nano">
 		<span style="display:inline-block" class="content"><img class="display" src="/descrs/QC_00.jpg"></span>
 	</div>
@@ -617,6 +687,17 @@
 			<p><span class="active" data-img="Misc_Render_00">RENDER 1</span></p>
 			<p><span class="active" data-img="Misc_Render_01">RENDER 2</span></p>
 			<p><span class="active" data-img="Misc_RenderManuali_00">RENDER MANUALI</span></p>
+			<p><span class="active" data-img="RENDER_Arc_Altra_Vista_prospettica">MOTORE ARC - VISTA PROSPETTICA</span></p>
+			<p><span class="active" data-img="RENDER_Arc_Reactor_Altra prospettiva">MOTORE ARC - VISTA PROSPETTICA</span></p>
+			<p><span class="active" data-img="RENDER_Arc_Reactor_Render_Esploso">MOTORE ARC - ESPLOSO</span></p>
+			<p><span class="active" data-img="RENDER_Arc_Reactor_Vista prospettica">ARC REACTOR - VISTA PROSPETTICA</span></p>
+			<a href="http://grabcad.com/library/iron-man-arc-reactor-request" target="_blank"><i class="icon-external-link"></i> Modello dell'ARC REACTOR</a>
+			<p><span class="active" data-img="RENDER_Harlock_Poster_A5">HARLOCK POSTER</span></p>
+			<p><span class="active" data-img="RENDER_Harlock_SecondoRender_A5_Vers2">HARLOCK POSTER - V2</span></p>
+			<a href="http://sketchup.google.com/3dwarehouse/details?mid=7d5915da228e8e217628b1301e5c5794&prevstart=0" target="_blank"><i class="icon-external-link"></i> Modello dell'astronave Arcadia</a>
+			<p><span class="active" data-img="RENDER_IndianaJones_Poster_A5">INDIANA JONES POSTER</span></p>
+			<p><span class="active" data-img="RENDER_IndianaJones_Seconda_A5">INDIANA JONES POSTER - V2</span></p>
+			<a href="http://sketchup.google.com/3dwarehouse/details?mid=69ff9a662580daed77d257663a3a944a&prevstart=0" target="_blank"><i class="icon-external-link"></i> Modello dello zeppelin Hindenburg</a>
 		</div>
 	</div>
 	<div data-page="expopack" class="text  nano">
